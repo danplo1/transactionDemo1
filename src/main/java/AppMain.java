@@ -14,18 +14,28 @@ public class AppMain {
         System.out.println(account);
         System.out.println(cashMachine);
 
-        try{
-            account.withdraw(200);
-            cashMachine.withdraw(200);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        transactionalWithdraw(account, cashMachine, 200);
 
 
         System.out.println("---------------------------------");
         System.out.println(account);
         System.out.println(cashMachine);
 
+    }
+
+    private static void transactionalWithdraw(Account account, CashMachine cashMachine, int amount) {
+        Account accountBackup = account.copy();
+        CashMachine cashMachineBackup = cashMachine.copy();
+
+
+        try{
+            account.withdraw(amount);
+            cashMachine.withdraw(amount);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            account.restore(accountBackup);
+            cashMachine.restore(cashMachineBackup);
+        }
     }
 }

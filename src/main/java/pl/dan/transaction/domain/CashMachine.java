@@ -27,4 +27,14 @@ public class CashMachine {
                 "money=" + money +
                 '}';
     }
+
+    // metody biznesowe do kopiowania i przywrócenia naszego stanu
+    public CashMachine copy(){
+         return new CashMachine(this.money);
+    }
+
+    public void restore (CashMachine machine){
+        this.money = machine.money;
+    }
+
 }
